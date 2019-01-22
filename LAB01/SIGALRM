@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<signal.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+void alarm_handler(int signo){
+	if (signo == SIGALRM){
+		printf("alarm goes off\n");
+	}
+}
+
+int main(void){
+	if (signal(SIGALRM, alarm_handler) == SIG_ERR){
+		
+		printf("failed to register alarm handler.");
+		exit(1);
+	}
+
+	alarm(3);
+	while(1){ sleep(10); }
+}
